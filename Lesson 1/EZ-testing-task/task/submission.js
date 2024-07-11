@@ -17,7 +17,7 @@ class Submission {
     try {
       // Read WAV file
       const client = new KoiiStorageClient();
-      const wallet = fs.readFileSync("../../../home/<username>/.config", "utf-8");
+      const wallet = namespaceWrapper.getSubmitterAccount();
       const wavData = fs.readFileSync(wavFilePath);
       const wav = new lamejs.WavHeader();
       wav.readHeader(new DataView(wavData.buffer));
@@ -35,7 +35,6 @@ class Submission {
       );
 
       console.log('Started Task', new Date(), process.env.TEST_KEYWORD);
-      
 
       // Encode to MP3
       const mp3Data = [];
@@ -58,11 +57,14 @@ class Submission {
       console.log('Conversion completed successfully');
 
       try {
-        const fileUploadResponse = await client.uploadFile(mp3FilePath, userStaking);
+        const fileUploadResponse = await client.uploadFile(
+          mp3FilePath,
+          userStaking,
+        );
         const cid_returned = fileUploadResponse.cid;
-        console.log("File uploaded successfully. CID:", cid_returned);
+        console.log('File uploaded successfully. CID:', cid_returned);
       } catch (error) {
-        console.error("Error uploading file:", error);
+        console.error('Error uploading file:', error);
       }
 
       return cid_returned;
@@ -95,11 +97,12 @@ class Submission {
    * @returns {Promise<any>} The submission value that you will use in audit. Ex. cid of the IPFS file
    */
   async submitTask(wavFilePath, mp3FilePath) {
-    console.log('SUBMIT TASK CALLED ROUND NUMBER', round);
+    console.log('SUBMIT TASK CALLED ROUND NUMBER');
     try {
       // Read WAV file
       const client = new KoiiStorageClient();
-      const wallet = fs.readFileSync("../../../home/<username>/.config", "utf-8");
+      const wallet = namespaceWrapper.getSubmitterAccount();
+
       const wavData = fs.readFileSync(wavFilePath);
       const wav = new lamejs.WavHeader();
       wav.readHeader(new DataView(wavData.buffer));
@@ -116,10 +119,7 @@ class Submission {
         128,
       );
 
-      
-
       console.log('Started Task', new Date(), process.env.TEST_KEYWORD);
-      
 
       // Encode to MP3
       const mp3Data = [];
@@ -144,16 +144,17 @@ class Submission {
       const signature = await namespaceWrapper.payloadSigning(message);
 
       try {
-        const fileUploadResponse = await client.uploadFile(mp3FilePath, userStaking);
+        const fileUploadResponse = await client.uploadFile(
+          mp3FilePath,
+          userStaking,
+        );
         const cid_returned = fileUploadResponse.cid;
-        console.log("File uploaded successfully. CID:", cid_returned);
+        console.log('File uploaded successfully. CID:', cid_returned);
       } catch (error) {
-        console.error("Error uploading file:", error);
+        console.error('Error uploading file:', error);
       }
 
       return cid_returned;
-
-
     } catch (error) {
       console.error('Error converting WAV to MP3:', error);
     }
