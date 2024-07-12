@@ -5,7 +5,6 @@
 > [!WARNING]
 >
 > In order to deploy a task you must download the desktop node and stake on at least one task. This will create your staking wallet, which is required during deployment. If you have followed the EZSandbox tutorial up to this point, you already have a staking wallet.
->
 
 ### Environment Variables
 
@@ -15,9 +14,9 @@ To get a variable in your task, add it to your `task-config.yml`, in the `requir
 
 ```yml
 requirementsTags:
-- type: TASK_VARIABLE
-  value: 'VARIABLE_NAME'
-  description: 'Variable description'
+  - type: TASK_VARIABLE
+    value: "VARIABLE_NAME"
+    description: "Variable description"
 ```
 
 The value and description will be shown in the desktop node, so make them descriptive enough that users will understand what to enter:
@@ -59,7 +58,6 @@ koii-keygen new -o ~/.config/koii/id.json
 > [!WARNING]
 >
 > This is an unencrypted keypair. Do not share this file with anyone.
->
 
 When creating your wallet, you will be prompted for a BIP39 passphrase. This is optional, but adds additional security to your seed phrase. It does not affect the security of the underlying wallet.
 
@@ -76,7 +74,6 @@ koii address
 > **GET TOKENS**
 >
 > If you're attending a live event, you will receive tokens to pay the deployment fees. If you're not attending a live event, you can earn tokens by running tasks in the desktop node.
->
 
 #### Create Task CLI
 
